@@ -1,8 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 
-import Navbar from '../components/Navbar'
+import Navbar from '../components/Navbar';
+import 'semantic-ui-css/semantic.min.css';
 import './all.sass'
 
 const TemplateWrapper = ({ children }) => (

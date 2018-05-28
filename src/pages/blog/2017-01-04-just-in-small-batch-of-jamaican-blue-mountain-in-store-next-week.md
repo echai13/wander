@@ -10,6 +10,7 @@ tags:
   - green beans
   - flavor
   - tasting
+image: /img/jumbotron.jpg
 ---
 ![](/img/jumbotron.jpg)
 

@@ -3,40 +3,55 @@ import PropTypes from 'prop-types'
 import Link from 'gatsby-link'
 
 export default class IndexPage extends React.Component {
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    console.log('scrollPos: ', window.scrollY);
+    if (window.scrollY > 30) {
+      document.querySelector('div.top-section > h1').classList.add('slide-up');
+    }
+  }
+
+  renderMenuDetails = () => {
+    return (
+      <div className="nav-menu detail">
+        <div id="expressions">photos, poetry, prose</div>
+        <div id="travels">travel tips + guides</div>
+        <div id="about">about us = wanderers</div>
+        <div id="itineraries">itineraries ideas</div>
+      </div>
+    )
+  }
+
   render() {
     const { data } = this.props
     const { edges: posts } = data.allMarkdownRemark
+    console.log('props: ', this.props);
 
     return (
       <section className="section">
-        <div className="container">
-          <div className="content">
-            <h1 className="has-text-weight-bold is-size-2">Latest Stories</h1>
+        <div className="ui fluid container">
+          { this.renderMenuDetails() }
+          <div className="top-section">
+            <h1>wander</h1>
           </div>
-          {posts
-            .map(({ node: post }) => (
-              <div
-                className="content"
-                style={{ border: '1px solid #eaecee', padding: '2em 4em' }}
-                key={post.id}
-              >
-                <p>
-                  <Link className="has-text-primary" to={post.fields.slug}>
-                    {post.frontmatter.title}
-                  </Link>
-                  <span> &bull; </span>
-                  <small>{post.frontmatter.date}</small>
-                </p>
-                <p>
-                  {post.excerpt}
-                  <br />
-                  <br />
-                  <Link className="button is-small" to={post.fields.slug}>
-                    Keep Reading →
-                  </Link>
-                </p>
-              </div>
-            ))}
+
+          <div className="featured-image" />
+
+          <div className="featured-posts">
+            {
+              posts.map(post => (
+                <div>
+                  <h3>{post.node.frontmatter.title}</h3>
+                  <div>{post.node.excerpt}</div>
+                  <img src={post.node.frontmatter.image || ''} />
+                </div>
+              ))
+            }
+          </div>
         </div>
       </section>
     )
@@ -68,6 +83,7 @@ export const pageQuery = graphql`
             title
             templateKey
             date(formatString: "MMMM DD, YYYY")
+            image
           }
         }
       }
