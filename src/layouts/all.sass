@@ -1,15 +1,28 @@
 $pastel-blue: #dee8eb
 $white: #ffffff
 
+img
+  width: 100%
+
+div.image-wrapper
+  width: 70%
+  margin: 0 auto
+
 nav
   display: flex
   justify-content: center
   text-align: center
 
   > div.nav-menu
-    position: absolute
+    position: fixed
     top: 10vmin
     font-size: 5vmin
+    z-index: 5
+
+    &.slide-up
+      font-size: 2vmin
+      top: 0
+      margin-top: 1vh
 
 section > div.ui.fluid.container
   margin-left: 0!important
@@ -28,25 +41,55 @@ section > div.ui.fluid.container
       font-size: 3vmax
       color: $white
 
+div.top-section.slide-up
+  position: fixed
+  height: 10vh
+  background-color: transparent
+  top: 5vh
+  transition: height 0.4s ease
+
 div.top-section
   height: 100vh
+  width: 100vw
   background-color: $pastel-blue
   display: flex
   align-items: flex-end
   justify-content: center
+  z-index: 5
 
   h1
     font-size: 10vmax
     margin-bottom: 5vmin
 
   h1.slide-up
-    margin-bottom: 20vw
-    transition: margin-bottom 0.3s ease
+    margin-bottom: 0px
+    font-size: 5vmin
+    color: #00b5ad
+    background-color: rgba(255, 255, 255, 0.7)
+    padding: 0 8vh
+    border: double 5px
+    transition: font-size 0.4s cubic-bezier(0.1, 0.7, 1.0, 0.1)
 
 div.top-section.slide-up
-  height:
 
 div.featured-image
   background: url('../img/rome-streets.jpg') no-repeat center
   height: 100vh
   background-size: cover
+  div.featured-title
+    position: absolute
+    width: 30vmax
+    min-height: 20vmax
+    margin-top: 30vh
+    right: 5vmax
+    font-size: 5vmax
+    padding: 2vw
+    line-height: 1
+    border: double 5px black
+    background-color: rgba(255, 255, 255, 0.8)
+
+img.clothespin
+  width: 5%
+  position: absolute
+  z-index: 5
+  margin-top: -40px
