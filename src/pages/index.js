@@ -14,20 +14,39 @@ export default class IndexPage extends React.Component {
   }
 
   handleScroll = () => {
+    // scrolling up, shows navbar only in desktop
     if (window.scrollY < this.scrollPos) {
-      document.querySelector('div.nav-menu').style.display = 'block';
-      document.querySelector('div.top-section').style.top = '5vh';
+      document.querySelector('.nav-menu').classList.add('show');
+      document.querySelector('.nav-menu').classList.remove('hide');
     }
 
-    console.log('scrollPos: ', window.scrollY);
+    const header = document.querySelector('div.top-section > h1');
+    const nav = document.querySelector('nav');
+    const navMenu = document.querySelector('.nav-menu');
+
+    header.addEventListener('click', () => {
+      if (Array.from(nav.classList).indexOf('opened') === -1) {
+        nav.classList.add('opened');
+        navMenu.classList.remove('show');
+        navMenu.classList.remove('hide');
+      } else {
+        nav.classList.remove('opened');
+        navMenu.classList.add('hide');
+      }
+    });
+
     if (window.scrollY > 30) {
-      document.querySelector('div.top-section > h1').classList.add('slide-up');
-      document.querySelector('div.top-section').classList.add('slide-up');
+      const topSection = document.querySelector('div.top-section');
+      const header = document.querySelector('div.top-section > h1');
+      const nav = document.querySelector('nav');
+      const navMenu = document.querySelector('.nav-menu');
+
+      header.classList.add('slide-up');
+      topSection.classList.add('slide-up');
       document.querySelector('div.nav-menu').classList.add('slide-up');
 
-      if (scrollY > this.scrollPos && window.scrollY > 100) {
-        document.querySelector('div.nav-menu').style.display = 'none';
-        document.querySelector('div.top-section').style.top = '0';
+      if (scrollY > this.scrollPos) {
+        document.querySelector('div.nav-menu').classList.add('hide');
       }
     }
 

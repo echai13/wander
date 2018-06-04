@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Sunflower:300,500,700')
+  
 $pastel-blue: #dee8eb
 $white: #ffffff
 
@@ -24,6 +26,12 @@ nav
       top: 0
       margin-top: 1vh
 
+div.nav-menu.show
+  display: block
+
+div.nav-menu.hide
+  display: none
+
 section > div.ui.fluid.container
   margin-left: 0!important
   margin-right: 0!important
@@ -44,14 +52,32 @@ section > div.ui.fluid.container
 div.top-section.slide-up
   position: fixed
   height: 10vh
-  background-color: transparent
+  background: transparent
   top: 5vh
   transition: height 0.4s ease
+
+@media only screen and (max-device-width: 768px)
+  div.nav-menu.show 
+    display: none
+
+  nav.opened 
+    display: flex
+    height: 100vh
+    width: 100vw
+    position: fixed
+    background-color: rgba(255, 255, 255, 1)
+    align-items: center
+    z-index: 1
+    > div.ui.four.doubling.nav-menu
+      position: relative
+      > div.column
+        padding: 5vh!important
 
 div.top-section
   height: 100vh
   width: 100vw
-  background-color: $pastel-blue
+  background: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%,rgba(255,255,255,0.3) 100%), url('../img/cover-photo.jpeg') no-repeat fixed center
+  background-size: cover
   display: flex
   align-items: flex-end
   justify-content: center
@@ -60,6 +86,7 @@ div.top-section
   h1
     font-size: 10vmax
     margin-bottom: 5vmin
+    font-family: 'Sunflower', sans-serif
 
   h1.slide-up
     margin-bottom: 0px
