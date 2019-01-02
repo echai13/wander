@@ -1,5 +1,6 @@
-import React from 'react'
-import Link from 'gatsby-link'
+import React from 'react';
+import styled from 'styled-components';
+import Link from 'gatsby-link';
 
 import github from '../img/github-icon.svg'
 import logo from '../img/logo.svg'
@@ -7,58 +8,32 @@ import logo from '../img/logo.svg'
 const menuItems = [
   'expressions',
   'travels',
-  'about',
+  'about wander',
   'itineraries'
-]
-
-const handleHover = menuItem => {
-  const unselectedItems = menuItems.filter(item => item !== menuItem);
-  unselectedItems.forEach(item => {
-    document.getElementById(item).style.display = 'none';
-  });
-  document.getElementById(menuItem).style.display = 'block';
-}
-
-const handleMouseOut = menuItem => {
-  document.getElementById(menuItem).style.display = 'none';
-}
+];
 
 const Navbar = () => (
-  <nav>
-    <div className="ui four column doubling stackable grid container nav-menu">
-      <div
-        className="column"
-        onMouseOver={() => handleHover('expressions')}
-        onMouseOut={() => handleMouseOut('expressions')}
-      >
-        expressions
-      </div>
-
-      <div
-        className="column"
-        onMouseEnter={() => handleHover('travels')}
-        onMouseOut={() => handleMouseOut('travels')}
-      >
-        travels
-      </div>
-
-      <div
-        className="column"
-        onMouseEnter={() => handleHover('about')}
-        onMouseOut={() => handleMouseOut('about')}
-      >
-        about
-      </div>
-
-      <div
-        className="column"
-        onMouseEnter={() => handleHover('itineraries')}
-        onMouseOut={() => handleMouseOut('itineraries')}
-      >
-        itineraries
-      </div>
-    </div>
-  </nav>
+  <NavbarWrapper>
+    {menuItems.map(item => (
+      <span>{item}</span>
+    ))}
+  </NavbarWrapper>
 )
 
-export default Navbar
+export default Navbar;
+
+const NavbarWrapper = styled.nav`
+  display: inline-flex;
+  justify-content: space-evenly;
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  height: 64px;
+  align-items: center;
+  position: fixed;
+  cursor: pointer;
+  z-index: 1;
+`;

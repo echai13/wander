@@ -6,6 +6,14 @@ media_folder: static/img
 public_folder: /img
 
 collections:
+  - name: "albums"
+    label: "Albums"
+    folder: "src/pages/albums"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {}
+
   - name: "blog"
     label: "Blog"
     folder: "src/pages/blog"
