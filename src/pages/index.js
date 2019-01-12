@@ -12,6 +12,21 @@ import Winter from '../../src/img/winter-white.jpeg';
 
 import SriLanka from '../../src/img/little-adam-peak.jpg';
 
+import Singapore from '../../src/img/singapore-cover.jpg';
+import Animal from '../../src/img/animals-cover.jpg';
+import Thailand from '../../src/img/thailand-cover.jpg';
+import PhotographyCover from '../../src/img/ayutthaya-photography.jpg';
+
+import ThailandTransportation from '../../src/img/thailand-transportation.jpg';
+import HangzhouTips from '../../src/img/hangzhou-tips.jpg';
+import BeijingWall from '../../src/img/beijing-wall.jpg';
+import TaipeiStories from '../../src/img/taipei-stories.jpg';
+
+import Tokyo from '../../src/img/tokyo.jpg';
+import Shenzhen from '../../src/img/shenzhen.jpg';
+import Guilin from '../../src/img/guilin.jpg';
+import DiaryCover from '../../src/img/diary-cover.jpg';
+
 const Carousel = styled.div`
   width: 100%;
   height: 98vh;
@@ -47,6 +62,7 @@ const FeaturedPost = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 `;
 
 const FullScreen = styled.div`
@@ -58,7 +74,7 @@ const Image = styled.img`
 `;
 
 const Caption = styled.div`
-  width: 24%;
+  width: 24vw;
   padding: 32px;
   line-height: 32px;
 `;
@@ -74,7 +90,7 @@ const Recent = styled.div`
 `;
 
 const Heading = styled.div`
-  background-color: red;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -96,6 +112,10 @@ const Outer = styled.div`
   justify-content: center;
 `;
 
+const CoverImage = styled.img`
+  width: 100%;
+`;
+
 const carouselImages = [
   Winter,
   Spring,
@@ -103,15 +123,18 @@ const carouselImages = [
   Autumn
 ];
 
+let previousScrollPosition = window.scrollY;
+
 export default class IndexPage extends React.Component {
   featuredPost = React.createRef();
   state = {
     carouselIndex: 0,
+    shouldShowNavbar: false,
   };
 
   componentDidMount() {
     this.renderImageCarousel();
-    // window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('scroll', this.handleNavbarScroll);
   }
 
   renderImageCarousel = () => {
@@ -138,6 +161,24 @@ export default class IndexPage extends React.Component {
     if (difference < 16) this.featuredPost.current.style.transform = `translateY(${difference}vh)`;
   }
 
+  handleNavbarScroll = () => {
+    let ticking = false;
+    
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        ticking = true;
+        if (window.scrollY < previousScrollPosition) {
+          this.setState({ shouldShowNavbar: true });
+          return;
+        } else if (this.state.shouldShowNavbar) {
+          this.setState({ shouldShowNavbar: false });
+        }
+        previousScrollPosition = window.scrollY;
+      });
+      ticking = false;
+    }
+  }
+
   render() {
     const { data } = this.props
     const { edges: posts } = data.allMarkdownRemark
@@ -154,7 +195,7 @@ export default class IndexPage extends React.Component {
               ))}
             </Carousel>
           </FullScreen>
-          <Navbar />
+          {this.state.shouldShowNavbar && <Navbar />}
           <FeaturedPost ref={this.featuredPost}>
             <Image src={SriLanka} />
             <Caption>
@@ -164,28 +205,99 @@ export default class IndexPage extends React.Component {
           </FeaturedPost>
           <Outer>
             <Recent>
-              <Heading>Photobook</Heading>
-              <RecentPost />
-              <RecentPost />
-              <RecentPost />
+              <Heading style={{
+                  backgroundImage: `url(${PhotographyCover})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  opacity: 0.8,
+                }}
+              >
+                Photobook
+              </Heading>
+              <RecentPost style={{
+                  backgroundImage: `url(${Singapore})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+
+              <RecentPost style={{
+                  backgroundImage: `url(${Animal})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+              <RecentPost style={{
+                  backgroundImage: `url(${Thailand})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
             </Recent>
           </Outer>
           
           <Outer>
             <Recent>
-              <Heading>Stories</Heading>
-              <RecentPost />
-              <RecentPost />
-              <RecentPost />
+              <Heading style={{
+                  backgroundImage: `url(${TaipeiStories})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  opacity: 0.8,
+                }}
+              >
+                Stories
+              </Heading>
+              <RecentPost style={{
+                  backgroundImage: `url(${ThailandTransportation})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+
+              <RecentPost style={{
+                  backgroundImage: `url(${HangzhouTips})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+              <RecentPost style={{
+                  backgroundImage: `url(${BeijingWall})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
             </Recent>
           </Outer>
           
           <Outer>
             <Recent>
-              <Heading>Diary</Heading>
-              <RecentPost />
-              <RecentPost />
-              <RecentPost />
+              <Heading style={{
+                  backgroundImage: `url(${DiaryCover})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  opacity: 0.8,
+                }}
+              >
+                Diary
+              </Heading>
+              <RecentPost style={{
+                  backgroundImage: `url(${Tokyo})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+              <RecentPost style={{
+                  backgroundImage: `url(${Guilin})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+              <RecentPost style={{
+                  backgroundImage: `url(${Shenzhen})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
             </Recent>
           </Outer>
         </div>
@@ -219,7 +331,8 @@ export const pageQuery = graphql`
             title
             templateKey
             date(formatString: "MMMM DD, YYYY")
-            image
+            image,
+            tags
           }
         }
       }
