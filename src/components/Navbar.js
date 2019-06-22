@@ -12,11 +12,13 @@ const menuItems = [
   'itineraries'
 ];
 
+const renderMenuItems = (item, index) => (
+  <span key={`${item}-${index}`}>{item}</span>
+);
+
 const Navbar = () => (
   <NavbarWrapper>
-    {menuItems.map(item => (
-      <span>{item}</span>
-    ))}
+    {menuItems.map(renderMenuItems)}
   </NavbarWrapper>
 )
 
@@ -27,13 +29,14 @@ const NavbarWrapper = styled.nav`
   justify-content: space-evenly;
   width: 100%;
   position: absolute;
-  top: 40px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   background-color: white;
-  height: 64px;
+  height: 48px;
   align-items: center;
   position: fixed;
   cursor: pointer;
   z-index: 1;
+  opacity: 0.75;
 `;

@@ -41,10 +41,11 @@ const CarouselImage = styled.img`
   display: inline-flex;
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   position: absolute;
   top: 40%;
   left: 50%;
+  height: 56px;
   transform: translateX(-50%);
   z-index: 1;
   background-color: rgba(255, 255, 255, 0.5);
@@ -53,6 +54,31 @@ const Title = styled.h1`
   font-family: 'Lato', sans-serif;
   border-radius: 2px;
   font-weight: 900;
+`;
+
+const Characters = styled.div`
+  position: relative;
+  display: flex;
+
+  :hover {
+    cursor: pointer; 
+
+    span {
+      animation: bounce 1s ease infinite alternate;
+      margin-top: 8px;
+    }
+  
+    span:first-child { animation-delay: 0.1s; }
+    span:nth-child(2) { animation-delay: 0.2s; }
+    span:nth-child(3) { animation-delay: 0.5s; }
+    span:nth-child(4) { animation-delay: 0.6s; }
+    span:nth-child(5) { animation-delay: 0.1s; }
+    span:last-child { animation-delay: 0.3s; }
+  
+    @keyframes bounce {
+      100% { margin-top: -8px; }
+    }
+  }
 `;
 
 const FeaturedPost = styled.div`
@@ -162,36 +188,40 @@ export default class IndexPage extends React.Component {
   }
 
   handleNavbarScroll = () => {
-    let ticking = false;
-    
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        ticking = true;
-        if (window.scrollY < previousScrollPosition) {
-          this.setState({ shouldShowNavbar: true });
-          return;
-        } else if (this.state.shouldShowNavbar) {
-          this.setState({ shouldShowNavbar: false });
-        }
-        previousScrollPosition = window.scrollY;
-      });
-      ticking = false;
+    if (window.scrollY < previousScrollPosition) {
+      this.setState({ shouldShowNavbar: true });
+    } else if (this.state.shouldShowNavbar) {
+      this.setState({ shouldShowNavbar: false });
     }
+    
+    previousScrollPosition = window.scrollY;
   }
 
   render() {
     const { data } = this.props
     const { edges: posts } = data.allMarkdownRemark
-    console.log('props: ', this.props);
     
     return (
       <section className="section">
         <div className="ui fluid container">
           <FullScreen>
             <Carousel>
-              <Title>wander</Title>
-              {carouselImages.map(image => (
-                <CarouselImage src={image} style={{ transform: `translateX(-${this.state.carouselIndex * 100}%)` }} />
+              <Title>
+                <Characters>
+                  <span>w</span>
+                  <span>a</span>
+                  <span>n</span>
+                  <span>d</span>
+                  <span>e</span>
+                  <span>r</span>
+                </Characters>
+              </Title>
+              {carouselImages.map((image, index) => (
+                <CarouselImage
+                  key={`${image}-${index}`}
+                  src={image} 
+                  style={{ transform: `translateX(-${this.state.carouselIndex * 100}%)` }} 
+                />
               ))}
             </Carousel>
           </FullScreen>
